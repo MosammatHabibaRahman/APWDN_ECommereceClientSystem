@@ -22,20 +22,35 @@ $(document).ready(function(){
                         console.log(id);
                         $.ajax({
                             url:"http://localhost:3001/api/orders/"+id,
-                            method: "PUT",
-                            header:"Content-Type:application/json",
-                            data:{
-                                    "TotalCost":data[id].totalCost,
-                                    "Express":data[id].express,
-                                    "Status":"On the Way",
-                                    "DateOrdered":data[id].dateOrdered,
-                                    "CustomerId":data[id].customerId,
-                                    "ShipperId":2
-                            },
+                            method: "GET",
                             complete:function(xmlhttp,status){
                                 if(xmlhttp.status==200)
                                 {
-                                    $("#msg").html("Status Updated");
+                                    var order = xmlhttp.responseJSON;
+                                    $.ajax({
+                                        url:"http://localhost:3001/api/orders/"+id,
+                                        method: "PUT",
+                                        header:"Content-Type:application/json",
+                                        data:{
+                                                "TotalCost":order.totalCost,
+                                                "Express":order.express,
+                                                "Status":"On the Way",
+                                                "DateOrdered":order.dateOrdered,
+                                                "CustomerId":order.customerId,
+                                                "ShipperId":2
+                                        },
+                                        complete:function(xmlhttp,status){
+                                            if(xmlhttp.status==200)
+                                            {
+                                                loadOrders();
+                                                $("#msg").html("Status Updated");
+                                            }
+                                            else
+                                            {
+                                                $("#msg").html(xmlhttp.status+": "+xmlhttp.statusText);
+                                            }
+                                        }
+                                    });
                                 }
                                 else
                                 {
@@ -117,4 +132,8 @@ $(document).ready(function(){
             updateTable();
         }
     });
+
+    var cleartextboxes=function(){
+        $("#msg").html("");
+    }
 });
