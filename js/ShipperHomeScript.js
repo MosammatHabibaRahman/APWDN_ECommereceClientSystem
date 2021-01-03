@@ -1,7 +1,3 @@
-let date = new Date().toISOString().
-  replace(/T/, ' ').      
-  replace(/\..+/, '') ;
-
 $(document).ready(function(){
   
     var loadOrders=function(){
@@ -17,7 +13,7 @@ $(document).ready(function(){
                     {
                         if(data[i].status=="To Be Delivered")
                         {
-                            str+="<tr><td>"+data[i].orderId+"</td><td>"+data[i].dateOrdered+"</td><td>"+data[i].status+"</td><td>"+data[i].express+"</td><td>"+data[i].totalCost+"</td><td><a href="+"CustomerDetails.html?id="+data[i].customerId+">Customer Info</a></td><td><button id="+"deliverbtn"+">Deliver This</button></td></tr>";
+                            str+="<tr><td>"+data[i].orderId+"</td><td>"+data[i].dateOrdered+"</td><td>"+data[i].status+"</td><td>"+data[i].express+"</td><td>"+data[i].totalCost+"</td><td><a href="+"../view/CustomerDetails.html?id="+data[i].customerId+">Customer Info</a></td><td><button id="+"deliverbtn"+">Deliver This</button></td></tr>";
                         }
                     }
 
@@ -50,7 +46,7 @@ $(document).ready(function(){
                         {
                             if(data[i].status=="On the Way")
                             {
-                                str+="<tr><td>"+data[i].orderId+"</td><td>"+data[i].dateOrdered+"</td><td>"+data[i].status+"</td><td>"+data[i].express+"</td><td>"+data[i].totalCost+"</td><td><a href="+"CustomerDetails.html?id="+data[i].customerId+">Customer Info</a></td><td>N/A</td></tr>";
+                                str+="<tr><td>"+data[i].orderId+"</td><td>"+data[i].dateOrdered+"</td><td>"+data[i].status+"</td><td>"+data[i].express+"</td><td>"+data[i].totalCost+"</td><td><a href="+"../view/CustomerDetails.html?id="+data[i].customerId+">Customer Info</a></td><td>N/A</td></tr>";
                             }
                             $("#tableHeader").html("Orders on the way");
                         }
@@ -58,7 +54,7 @@ $(document).ready(function(){
                         {
                             if(data[i].status=="Delivered")
                             {
-                                str+="<tr><td>"+data[i].orderId+"</td><td>"+data[i].dateOrdered+"</td><td>"+data[i].status+"</td><td>"+data[i].express+"</td><td>"+data[i].totalCost+"</td><td><a href="+"CustomerDetails.html?id="+data[i].customerId+">Customer Info</a></td><td>N/A</td></tr>";
+                                str+="<tr><td>"+data[i].orderId+"</td><td>"+data[i].dateOrdered+"</td><td>"+data[i].status+"</td><td>"+data[i].express+"</td><td>"+data[i].totalCost+"</td><td><a href="+"../view/CustomerDetails.html?id="+data[i].customerId+">Customer Info</a></td><td>N/A</td></tr>";
                             }
                             $("#tableHeader").html("Orders Delivered");
                         }
@@ -66,7 +62,7 @@ $(document).ready(function(){
                         {
                             if(data[i].shipperId==1)
                             {
-                                str+="<tr><td>"+data[i].orderId+"</td><td>"+data[i].dateOrdered+"</td><td>"+data[i].status+"</td><td>"+data[i].express+"</td><td>"+data[i].totalCost+"</td><td><a href="+"CustomerDetails.html?id="+data[i].customerId+">Customer Info</a></td><td>N/A</td></tr>";
+                                str+="<tr><td>"+data[i].orderId+"</td><td>"+data[i].dateOrdered+"</td><td>"+data[i].status+"</td><td>"+data[i].express+"</td><td>"+data[i].totalCost+"</td><td><a href="+"../view/CustomerDetails.html?id="+data[i].customerId+">Customer Info</a></td><td>N/A</td></tr>";
                             }
                             $("#tableHeader").html("My Deliveries");
                         }

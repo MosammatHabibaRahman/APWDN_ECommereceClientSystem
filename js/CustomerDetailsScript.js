@@ -1,7 +1,3 @@
-let date = new Date().toISOString().
-  replace(/T/, ' ').      
-  replace(/\..+/, '') ;
-
 $(document).ready(function(){
   
     var getUrlParameter = function getUrlParameter(sParam) {
