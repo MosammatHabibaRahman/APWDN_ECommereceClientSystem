@@ -9,21 +9,22 @@
     <body>
         <center><h2>Shipper Home Page</h2></center>
         <hr>
-        <select><option>Pending Orders</option><option>Orders on the way</option><option>Orders Delivered</option><option>My Deliveries</option></select>
+        <select id="selectList"><option>Pending Orders</option><option>Orders on the way</option><option>Orders Delivered</option><option>My Deliveries</option></select>
         <center>
             <h3 id="tableHeader">Pending Orders</h3>
-            <table id="orderList" border="1" width="800px">
+            <table id="orderList" border="1" width="800px" style="text-align: center;">
                 <thead>
                     <th>Order #</th>
                     <th>Date Ordered</th>
                     <th>Status</th>
                     <th>Express</th>
                     <th>Total Cost</th>
-                    <th>Customer Name</th>
+                    <th>Customer Info</th>
                     <th>Action</th>
                 </thead>
                 <tbody></tbody>
             </table>
+            <p id="msg"></p>
         </center>
     </body>
 </html>
