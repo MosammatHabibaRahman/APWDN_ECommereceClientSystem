@@ -46,48 +46,6 @@ $(document).ready(function(){
                                         }
                                     }
                                     $("#orderList tbody").html(str);
-                                    /*$(".deliverbtn").click(function(){
-                                        var id = this.id;
-                                        console.log(id);
-                                        $.ajax({
-                                            url:"http://localhost:3001/api/orders/"+id,
-                                            method: "GET",
-                                            complete:function(xmlhttp,status){
-                                                if(xmlhttp.status==200)
-                                                {
-                                                    var order = xmlhttp.responseJSON;
-                                                    $.ajax({
-                                                        url:"http://localhost:3001/api/orders/"+id,
-                                                        method: "PUT",
-                                                        header:"Content-Type:application/json",
-                                                        data:{
-                                                                "TotalCost":order.totalCost,
-                                                                "Express":order.express,
-                                                                "Status":"On the Way",
-                                                                "DateOrdered":order.dateOrdered,
-                                                                "CustomerId":order.customerId,
-                                                                "ShipperId":sid
-                                                        },
-                                                        complete:function(xmlhttp,status){
-                                                            if(xmlhttp.status==200)
-                                                            {
-                                                                loadOrders();
-                                                                $("#msg").html("Order is On the Way!");
-                                                            }
-                                                            else
-                                                            {
-                                                                $("#msg").html(xmlhttp.status+": "+xmlhttp.statusText);
-                                                            }
-                                                        }
-                                                    });
-                                                }
-                                                else
-                                                {
-                                                    $("#msg").html(xmlhttp.status+": "+xmlhttp.statusText);
-                                                }
-                                            }
-                                        });
-                                    });*/
                                     changeStatus();
                                 }
                                 else
