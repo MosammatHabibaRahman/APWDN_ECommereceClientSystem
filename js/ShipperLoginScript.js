@@ -12,7 +12,7 @@ $(document).ready(function(){
          if(Object.keys(res).length==0)
          {
              $.ajax({
-                 url:"http://localhost:3001/api/shipper/login",
+                 url:"http://localhost:3001/api/shippers/login",
                  method: 'POST',
                  data:{
                      "Username":User.username,
@@ -21,7 +21,8 @@ $(document).ready(function(){
                  success: function(res) {
                     if(res!=undefined)
                     {
-                        setCookie(User.username,10);
+                        console.log(res.shipperId);
+                        setCookie(res.shipperId,10);
                         window.location.href = "ShipperHome.html";
                         
                     }
@@ -49,7 +50,7 @@ $(document).ready(function(){
          
          if(User[key]=="")
          {
-             errorLog[key+"Err"]=key+" can not be empty";
+             errorLog[key+"Err"]=key+" cannot be empty!";
          }
  
        }
