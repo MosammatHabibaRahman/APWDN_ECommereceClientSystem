@@ -43,7 +43,7 @@ $(document).ready(function(){
                                             if(xmlhttp.status==200)
                                             {
                                                 loadOrders();
-                                                $("#msg").html("Status Updated");
+                                                $("#msg").html("Order is On the Way!");
                                             }
                                             else
                                             {
@@ -101,15 +101,57 @@ $(document).ready(function(){
                         }
                         else if(selected=="My Deliveries")
                         {
-                            if(data[i].shipperId==2)
+                            if(data[i].shipperId==2 && data[i].status=="On the Way")
                             {
-                                str+="<tr><td>"+data[i].orderId+"</td><td>"+data[i].dateOrdered+"</td><td>"+data[i].status+"</td><td>"+data[i].express+"</td><td>"+data[i].totalCost+"</td><td><a href="+"../view/CustomerDetails.html?id="+data[i].customerId+">Customer Info</a></td><td>N/A</td></tr>";
+                                str+="<tr><td>"+data[i].orderId+"</td><td>"+data[i].dateOrdered+"</td><td>"+data[i].status+"</td><td>"+data[i].express+"</td><td>"+data[i].totalCost+"</td><td><a href="+"../view/CustomerDetails.html?id="+data[i].customerId+">Customer Info</a></td><td><button class="+"deliverydonebtn"+" id="+data[i].orderId+">Delivered</button></td></tr>";
                             }
                             $("#tableHeader").html("My Deliveries");
                         }
                     }
 
                     $("#orderList tbody").html(str);
+                    $(".deliverydonebtn").click(function(){
+                        var id = this.id;
+                        console.log(id);
+                        $.ajax({
+                            url:"http://localhost:3001/api/orders/"+id,
+                            method: "GET",
+                            complete:function(xmlhttp,status){
+                                if(xmlhttp.status==200)
+                                {
+                                    var order = xmlhttp.responseJSON;
+                                    $.ajax({
+                                        url:"http://localhost:3001/api/orders/"+id,
+                                        method: "PUT",
+                                        header:"Content-Type:application/json",
+                                        data:{
+                                                "TotalCost":order.totalCost,
+                                                "Express":order.express,
+                                                "Status":"Delivered",
+                                                "DateOrdered":order.dateOrdered,
+                                                "CustomerId":order.customerId,
+                                                "ShipperId":order.shipperId
+                                        },
+                                        complete:function(xmlhttp,status){
+                                            if(xmlhttp.status==200)
+                                            {
+                                                loadOrders();
+                                                $("#msg").html("Order has been delivered!");
+                                            }
+                                            else
+                                            {
+                                                $("#msg").html(xmlhttp.status+": "+xmlhttp.statusText);
+                                            }
+                                        }
+                                    });
+                                }
+                                else
+                                {
+                                    $("#msg").html(xmlhttp.status+": "+xmlhttp.statusText);
+                                }
+                            }
+                        });
+                    });
                 }
                 else
                 {
