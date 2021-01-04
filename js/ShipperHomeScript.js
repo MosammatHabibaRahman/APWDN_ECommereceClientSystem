@@ -1,3 +1,7 @@
+let date = new Date().toISOString().
+  replace(/T/, ' ').      
+  replace(/\..+/, '') ;
+
 $(document).ready(function(){
     console.log("http://localhost:3001/api/shippers/"+getCookie());
     $.ajax({
@@ -145,6 +149,7 @@ $(document).ready(function(){
                                                                 "Express":order.express,
                                                                 "Status":"Delivered",
                                                                 "DateOrdered":order.dateOrdered,
+                                                                "DateDelivered":date,
                                                                 "CustomerId":order.customerId,
                                                                 "ShipperId":order.shipperId
                                                         },
