@@ -127,6 +127,14 @@ $(document).ready(function(){
                                             }
                                             $("#tableHeader").html("My Deliveries");
                                         }
+                                        else if(selected=="Pending Express Orders")
+                                        {
+                                            if(data[i].status=="To Be Delivered" && data[i].express == '1')
+                                            {
+                                                str+="<tr><td>"+data[i].orderId+"</td><td>"+data[i].dateOrdered+"</td><td>"+data[i].status+"</td><td>"+data[i].express+"</td><td>"+data[i].totalCost+"</td><td><a href="+"../view/CustomerDetails.html?id="+data[i].customerId+">Customer Info</a></td><td><button class="+"deliverydonebtn"+" id="+data[i].orderId+">Delivered</button></td></tr>";
+                                            }
+                                            $("#tableHeader").html("Pending Express Orders");
+                                        }
                                     }
 
                                     $("#orderList tbody").html(str);
