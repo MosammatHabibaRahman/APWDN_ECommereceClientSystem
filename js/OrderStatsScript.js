@@ -47,7 +47,7 @@ $(document).ready(function(){
                                     {
                                         delyear++;
                                     }
-                                    if(data[i].shipperId==2 && data[i].status!="To Be Delivered")
+                                    if(data[i].shipperId==sid && data[i].status!="To Be Delivered")
                                     {
                                         mydel++;
                                     }
