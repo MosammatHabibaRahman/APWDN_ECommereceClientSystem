@@ -46,7 +46,7 @@ $(document).ready(function(){
                                         }
                                     }
                                     $("#orderList tbody").html(str);
-                                    $(".deliverbtn").click(function(){
+                                    /*$(".deliverbtn").click(function(){
                                         var id = this.id;
                                         console.log(id);
                                         $.ajax({
@@ -87,7 +87,8 @@ $(document).ready(function(){
                                                 }
                                             }
                                         });
-                                    });
+                                    });*/
+                                    changeStatus();
                                 }
                                 else
                                 {
@@ -98,6 +99,51 @@ $(document).ready(function(){
                     }
 
                     loadOrders();
+
+                    var changeStatus=function(){
+                        $(".deliverbtn").click(function(){
+                            var id = this.id;
+                            console.log(id);
+                            $.ajax({
+                                url:"http://localhost:3001/api/orders/"+id,
+                                method: "GET",
+                                complete:function(xmlhttp,status){
+                                    if(xmlhttp.status==200)
+                                    {
+                                        var order = xmlhttp.responseJSON;
+                                        $.ajax({
+                                            url:"http://localhost:3001/api/orders/"+id,
+                                            method: "PUT",
+                                            header:"Content-Type:application/json",
+                                            data:{
+                                                    "TotalCost":order.totalCost,
+                                                    "Express":order.express,
+                                                    "Status":"On the Way",
+                                                    "DateOrdered":order.dateOrdered,
+                                                    "CustomerId":order.customerId,
+                                                    "ShipperId":sid
+                                            },
+                                            complete:function(xmlhttp,status){
+                                                if(xmlhttp.status==200)
+                                                {
+                                                    loadOrders();
+                                                    $("#msg").html("Order is On the Way!");
+                                                }
+                                                else
+                                                {
+                                                    $("#msg").html(xmlhttp.status+": "+xmlhttp.statusText);
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else
+                                    {
+                                        $("#msg").html(xmlhttp.status+": "+xmlhttp.statusText);
+                                    }
+                                }
+                            });
+                        });
+                    }
 
                     var updateTable=function(){
                         var selected = $("#selectList").val();
@@ -173,13 +219,15 @@ $(document).ready(function(){
                                                 {
                                                     exp="No"
                                                 }
-                                                str+="<tr><td>"+data[i].orderId+"</td><td>"+data[i].dateOrdered+"</td><td>"+data[i].status+"</td><td>"+exp+"</td><td>"+data[i].totalCost+"</td><td><a href="+"../view/CustomerDetails.html?id="+data[i].customerId+">Customer Info</a></td><td><a href="+"../view/ShipperHome.html"+">Go to Pending Orders</a></td></tr>";
+                                                str+="<tr><td>"+data[i].orderId+"</td><td>"+data[i].dateOrdered+"</td><td>"+data[i].status+"</td><td>"+exp+"</td><td>"+data[i].totalCost+"</td><td><a href="+"../view/CustomerDetails.html?id="+data[i].customerId+">Customer Info</a></td><td><button class="+"deliverbtn"+" id="+data[i].orderId+">Deliver This</button></td></tr>";
                                             }
                                             $("#tableHeader").html("Pending Express Orders");
                                         }
                                     }
 
                                     $("#orderList tbody").html(str);
+                                    changeStatus();
+                                    
                                     $(".deliverydonebtn").click(function(){
                                         var id = this.id;
                                         console.log(id);
